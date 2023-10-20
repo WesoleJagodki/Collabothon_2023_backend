@@ -1,12 +1,25 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put } from '@nestjs/common';
 import { AppService } from './app.service';
+import { CreateUsersDto, UpdateUserDto } from './users/users.dto';
 
+// USERS
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/users')
+  getUsers() {
+    return this.appService.findAll();
+  }
+
+  @Post('/users')
+  createUsers(@Body() createUsersDto: CreateUsersDto) {
+    console.log(createUsersDto);
+    return this.appService.create(createUsersDto);
+  }
+
+  @Put('/users')
+  updateUser(@Body() updateUserDto: UpdateUserDto) {
+    return this.appService.update(updateUserDto);
   }
 }
