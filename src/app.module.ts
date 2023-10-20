@@ -13,7 +13,7 @@ import { Users } from './users/users.entity';
       username: 'wesoleJagodki',
       entities: [Users],
       database: 'mainDb',
-      synchronize: true,
+      synchronize: false,
       logging: true,
     }),
     UsersModule,
