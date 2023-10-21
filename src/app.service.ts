@@ -7,6 +7,8 @@ import {
   GetUsersDto,
   CreateUsersDto,
   UpdateUserDto,
+  GetUsersPasswordDto,
+  GetUsersEmailDto,
 } from './users/users.dto';
 
 // USERS
@@ -17,8 +19,43 @@ export class AppService {
     private usersRepository: Repository<Users>,
   ) {}
 
+  async findPassword(): Promise<GetUsersPasswordDto[]> {
+    return (
+      await this.usersRepository.find({
+        skip: 0,
+        order: { user_id: 'ASC' },
+      })
+    ).map(
+      (passwords) =>
+        ({
+          user_id: passwords.user_id,
+          password: passwords.password,
+        }) as GetUsersPasswordDto,
+    );
+  }
+
+  async findEmail(): Promise<GetUsersEmailDto[]> {
+    return (
+      await this.usersRepository.find({
+        skip: 0,
+        order: { user_id: 'ASC' },
+      })
+    ).map(
+      (emails) =>
+        ({
+          user_id: emails.user_id,
+          email: emails.email,
+        }) as GetUsersEmailDto,
+    );
+  }
+
   async findAll(): Promise<GetUsersDto[]> {
-    return (await this.usersRepository.find()).map(
+    return (
+      await this.usersRepository.find({
+        skip: 0,
+        order: { user_id: 'ASC' },
+      })
+    ).map(
       (users) =>
         ({
           user_id: users.user_id,

@@ -1,25 +1,29 @@
-POST http://192.168.31.106:5433/users
+POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "Test",
-  "password": "Test"
+  "first_name": "Peter",
+  "last_name": "Parker",
+  "email": "peter96parker@gmail.com",
+  "password": "PP1pan2dziobak#",
+  "date_of_birth": "12/12/1212",
+  "sex": "Attack_Helicopter"
 }
 
 ###
-PUT http://192.168.31.106:5433/users
+PUT http://localhost:3000/users
 Content-Type: application/json
 
 {
   "user_id": 2,
   "first_name": "Peter",
   "last_name": "Parker",
-  "email": "peter69parker@gmail.com",
+  "email": "peter96parker@gmail.com",
   "password": "PP1pan2dziobak#",
   "date_of_birth": "12/12/1212",
   "sex": "Helicopter"
 }
 
 ###
-GET http://192.168.31.106:5433/users
+GET http://localhost:3000/users
 Content-Type: application/json

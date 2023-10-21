@@ -47,3 +47,13 @@ export class GetUsersDto {
   date_of_birth: string;
   sex: string;
 }
+
+export class GetUsersPasswordDto {
+  user_id: number;
+  password: string;
+}
+
+export class GetUsersEmailDto {
+  user_id: number;
+  email: string;
+}
