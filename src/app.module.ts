@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { Users } from './users/users.entity';
+import { Notifications } from "./notifications/notifications.entity";
+import { NotificationsModule } from "./notifications/notifications.module";
 
 @Module({
   imports: [
@@ -11,12 +13,13 @@ import { Users } from './users/users.entity';
       port: 5433,
       password: 'forTheWin',
       username: 'wesoleJagodki',
-      entities: [Users],
+      entities: [Users, Notifications],
       database: 'mainDb',
       synchronize: true,
       logging: true,
     }),
     UsersModule,
+    NotificationsModule,
   ],
 })
 export class AppModule {}

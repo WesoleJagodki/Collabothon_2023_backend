@@ -1,6 +1,14 @@
 import { Controller, Get, Post, Body, Put } from '@nestjs/common';
-import { AppService } from './app.service';
-import { CreateUsersDto, GetUsersPasswordDto, UpdateUserDto } from "./users/users.dto";
+import { AppService, AppServiceNotifications } from './app.service';
+import {
+  CreateUsersDto,
+  GetUsersPasswordDto,
+  UpdateUserDto,
+} from './users/users.dto';
+import {
+  CreateNotificationsDto,
+  UpdateNotificationDto,
+} from './notifications/notifications.dto';
 
 // USERS
 @Controller()
@@ -31,5 +39,29 @@ export class AppController {
   @Put('/users')
   updateUser(@Body() updateUserDto: UpdateUserDto) {
     return this.appService.update(updateUserDto);
+  }
+}
+
+// NOTIFICATIONS
+@Controller()
+export class AppControllerNotifications {
+  constructor(
+    private readonly appServiceNotifications: AppServiceNotifications,
+  ) {}
+
+  @Get('/notifications')
+  getNotifications() {
+    return this.appServiceNotifications.findAll();
+  }
+
+  @Post('/notifications')
+  createNotifications(@Body() createNotificationsDto: CreateNotificationsDto) {
+    console.log(createNotificationsDto);
+    return this.appServiceNotifications.create(createNotificationsDto);
+  }
+
+  @Put('/notifications')
+  updateNotification(@Body() updateNotificationDto: UpdateNotificationDto) {
+    return this.appServiceNotifications.update(updateNotificationDto);
   }
 }

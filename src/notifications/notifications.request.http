@@ -1,0 +1,23 @@
+POST http://localhost:3000/notifications
+Content-Type: application/json
+
+{
+  "content": "Example",
+  "used_flag": "Example",
+  "notification_id": 0,
+}
+
+###
+PUT http://localhost:3000/notifications
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "content": "Example",
+  "used_flag": "Example",
+  "notification_id": 0,
+}
+
+###
+GET http://localhost:3000/notifications
+Content-Type: application/json

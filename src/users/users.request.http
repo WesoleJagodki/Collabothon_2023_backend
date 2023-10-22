@@ -15,13 +15,13 @@ PUT http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "user_id": 2,
-  "first_name": "Peter",
-  "last_name": "Parker",
-  "email": "peter96parker@gmail.com",
-  "password": "PP1pan2dziobak#",
-  "date_of_birth": "12/12/1212",
-  "sex": "Helicopter"
+  "user_id": 7,
+  "first_name": "Admin",
+  "last_name": "Administrator",
+  "email": "Jarek",
+  "password": "dwaKoty",
+  "date_of_birth": "23/10/2023",
+  "sex": "God"
 }
 
 ###

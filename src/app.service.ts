@@ -10,6 +10,13 @@ import {
   GetUsersPasswordDto,
   GetUsersEmailDto,
 } from './users/users.dto';
+import { Notifications } from './notifications/notifications.entity';
+import {
+  CreateNotificationsResponse,
+  CreateNotificationsDto,
+  GetNotificationsDto,
+  UpdateNotificationDto,
+} from './notifications/notifications.dto';
 
 // USERS
 @Injectable()
@@ -94,6 +101,61 @@ export class AppService {
         password: updateUserDto.password,
         date_of_birth: updateUserDto.date_of_birth,
         sex: updateUserDto.sex,
+      },
+    );
+  }
+}
+
+// NOTIFICATIONS
+@Injectable()
+export class AppServiceNotifications {
+  constructor(
+    @InjectRepository(Notifications)
+    private notificationsRepository: Repository<Notifications>,
+  ) {}
+
+  async findAll(): Promise<GetNotificationsDto[]> {
+    return (
+      await this.notificationsRepository.find({
+        skip: 0,
+        order: { user_id: 'ASC' },
+      })
+    ).map(
+      (notifications) =>
+        ({
+          user_id: notifications.user_id,
+          content: notifications.content,
+          used_flag: notifications.used_flag,
+          notification_id: notifications.notification_id,
+        }) as GetNotificationsDto,
+    );
+  }
+
+  async create(
+    createNotificationsDto: CreateNotificationsDto,
+  ): Promise<CreateNotificationsResponse> {
+    return this.notificationsRepository.save(createNotificationsDto);
+  }
+
+  async update(updateNotificationDto: UpdateNotificationDto): Promise<any> {
+    const notifications = await this.notificationsRepository.findOne({
+      where: {
+        user_id: Equal(updateNotificationDto.user_id),
+      },
+    });
+
+    if (!notifications) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return this.notificationsRepository.update(
+      {
+        user_id: Equal(updateNotificationDto.user_id),
+      },
+      {
+        content: updateNotificationDto.content,
+        used_flag: updateNotificationDto.used_flag,
+        notification_id: updateNotificationDto.notification_id,
       },
     );
   }
