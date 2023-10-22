@@ -1,19 +1,13 @@
-FROM node:18-alpine
-ENV NODE_ENV production
+FROM node:18
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock) to the container
 COPY package*.json ./
 
-# Bundle app source
-COPY ./dist ./dist
+RUN npm install
 
-# Install dependencies
-RUN npm ci --only=production
+COPY . .
 
-# Set the command to run the application when the container starts
-CMD [ "npm", "run", "start:prod" ]
+RUN npm run build
 
-EXPOSE 3000
+CMD [ "npm", "run", "start:dev" ]
